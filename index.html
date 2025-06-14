@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <title>Controllo Shelly</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.1s ease;
+        }
+
+        .on-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+            .on-button:hover {
+                background-color: #45a049;
+            }
+
+        .off-button {
+            background-color: #f44336;
+            color: white;
+        }
+
+            .off-button:hover {
+                background-color: #d32f2f;
+            }
+
+        button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Controllo Shelly</h1>
+
+    <div class="button-container">
+        <button class="on-button" onclick="accendiShelly()">Accendi</button>
+        <button class="off-button" onclick="spegniShelly()">Spegni</button>
+    </div>
+
+    <script>function accendiShelly() {
+      fetch("http://192.168.1.74/relay/0?turn=on")
+        .then(response => {
+          if (response.ok) {
+            alert("Shelly acceso!");
+          } else {
+            alert("Errore nell'invio del comando.");
+          }
+        })
+        .catch(error => {
+          alert("Errore di rete: " + error);
+        });
+    }
+
+    function spegniShelly() {
+      fetch("http://192.168.1.74/relay/0?turn=off")
+        .then(response => {
+          if (response.ok) {
+            alert("Shelly spento!");
+          } else {
+            alert("Errore nell'invio del comando.");
+          }
+        })
+        .catch(error => {
+          alert("Errore di rete: " + error);
+        });
+    }</script>
+
+</body>
+</html>
